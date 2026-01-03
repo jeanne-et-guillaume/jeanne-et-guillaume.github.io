@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Mariage de Jeanne & Guillaume</title>
+    
+    <link rel="icon" type="image/png" href="icone.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES COULEURS --- */
+        :root {
+            --col-titre: #89935e;
+            --col-texte: #3e5076;
+            --col-fond: #dde3df;
+            --col-blanc: #ffffff;
+            --col-accent-1: #95a5b2;
+            --col-accent-2: #728b88;
+            --font-main: 'Bradley Hand', 'Bradley Hand ITC', 'Caveat', cursive;
+        }
+
+        /* --- RESET & GLOBAL --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--col-fond);
+            color: var(--col-texte);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            /* TAILLE MOBILE REDUITE (Standard 16px) */
+            font-size: 1rem; 
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            color: var(--col-titre);
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+
+        /* TAILLE TITRES H2 MOBILE */
+        h2 { font-size: 1.8rem; }
+
+        a { color: var(--col-texte); text-decoration: none; transition: 0.3s; }
+
+        /* --- ENTÊTE DÉFILANT (Hero) --- */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 60vh; /* Hauteur un peu réduite sur mobile */
+            overflow: hidden;
+            background-color: var(--col-fond);
+        }
+
+        .hero-scroller {
+            width: 100%;
+            height: 100%;
+            background-image: url('fond.jpg'); 
+            background-repeat: repeat-x;
+            background-size: 100vw auto;
+            background-position: left bottom;
+            will-change: background-position;
+            /* VITESSE : 60s */
+            animation: scrollBackground 60s linear infinite;
+
+            /* AJOUT DU MASQUE DE TRANSPARENCE SUR LES 5% DU BAS */
+            /* L'image est visible (opaque) jusqu'à 95%, puis devient transparente vers 100% */
+            -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+        }
+
+        /* Contenu du Header */
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            /* Padding bas à 5rem pour remonter le titre */
+            padding: 1.5rem 1rem 5rem 1rem;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-title {
+            color: var(--col-blanc); 
+            /* TAILLE MOBILE REDUITE */
+            font-size: 2.8rem; 
+            margin: 0;
+            line-height: 1.1;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-subtitle {
+            color: var(--col-blanc); 
+            /* TAILLE MOBILE REDUITE */
+            font-size: 1.6rem; 
+            margin-top: 0.3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        @keyframes scrollBackground {
+            0% { background-position: 0 bottom; }
+            100% { background-position: -100vw bottom; }
+        }
+
+        /* --- MEDIA QUERY DESKTOP (Restauration des grandes tailles) --- */
+        @media (min-width: 768px) {
+            body { font-size: 1.2rem; }
+            .hero-container { height: 80vh; }
+            .hero-title { font-size: 5rem; }
+            .hero-subtitle { font-size: 2.5rem; }
+            h2 { font-size: 2.5rem; }
+            .btn { font-size: 1.3rem !important; padding: 1rem 2.5rem !important; }
+            .event-icon { font-size: 2.5rem !important; }
+            .time-val { font-size: 2rem !important; }
+        }
+
+        /* --- SECTIONS --- */
+        .section-block {
+            padding: 3rem 1rem; /* Padding réduit sur mobile */
+            width: 100%;
+        }
+
+        .bg-light { background-color: var(--col-fond); }
+        .bg-white { background-color: var(--col-blanc); }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* --- COMPTE A REBOURS --- */
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 0;
+            color: var(--col-accent-2);
+            flex-wrap: wrap;
+        }
+        .time-box { display: flex; flex-direction: column; align-items: center; min-width: 50px; }
+        /* TAILLE CHIFFRES MOBILE REDUITE */
+        .time-val { font-size: 1.6rem; font-weight: bold; color: var(--col-titre); }
+        .time-label { font-size: 0.9rem; }
+
+        /* --- PROGRAMME --- */
+        .event { margin-bottom: 2rem; }
+        .event:last-child { margin-bottom: 0; }
+        
+        .event-time {
+            color: var(--col-titre);
+            font-weight: bold;
+            font-size: 1.2rem; /* Réduit */
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        
+        .event-icon { 
+            font-size: 2rem; /* Réduit */
+            display: block; 
+            margin-bottom: 0.8rem;
+            color: var(--col-accent-2);
+        }
+        .highlight { color: var(--col-accent-2); font-weight: bold; }
+
+        /* --- BOUTON --- */
+        .btn {
+            display: inline-block;
+            background-color: var(--col-titre);
+            color: white;
+            /* TAILLE BOUTON MOBILE REDUITE */
+            padding: 0.8rem 1.8rem; 
+            border-radius: 50px;
+            font-size: 1.1rem;
+            margin-top: 1.2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: transparent;
+            color: var(--col-titre);
+            border-color: var(--col-titre);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            padding: 1.5rem;
+            background-color: var(--col-accent-2);
+            color: white;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero-container">
+        <div class="hero-scroller"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Jeanne & Guillaume</h1>
+            <div class="hero-subtitle">27 Juin 2026</div>
+        </div>
+    </header>
+
+    <section class="section-block bg-light">
+        <div class="container">
+            <div id="countdown">
+                <div class="time-box"><span class="time-val" id="days">00</span><span class="time-label">Jours</span></div>
+                <div class="time-box"><span class="time-val" id="hours">00</span><span class="time-label">Heures</span></div>
+                <div class="time-box"><span class="time-val" id="minutes">00</span><span class="time-label">Min</span></div>
+                <div class="time-box"><span class="time-val" id="seconds">00</span><span class="time-label">Sec</span></div>
+            </div>
+            <p style="margin-top: 1.5rem;">
+                Nous avons hâte de partager ce moment unique avec vous.
+            </p>
+        </div>
+    </section>
+
+    <section class="section-block bg-white" id="infos">
+        <div class="container">
+            <h2>Le Programme</h2>
+            <br>
+            
+            <div class="event">
+                <span class="event-icon"><i class="fa-solid fa-church"></i></span>
+                <span class="event-time">15h00 - La Cérémonie</span>
+                <p class="event-details">
+                    Nous échangerons nos vœux en l'<strong>église Saint-André à Montagnole</strong>.<br>
+                    <small>Messe célébrée par le Père Gilbert Brun.</small>
+                </p>
+            </div>
+
+            <hr style="width: 40px; margin: 1.5rem auto; border-top: 2px dotted var(--col-accent-1); border-bottom:0; border-left:0; border-right:0;">
+
+            <div class="event">
+                <span class="event-icon"><i class="fa-solid fa-champagne-glasses"></i></span>
+                <span class="event-time">17h30 - Cocktail, Dîner et Soirée</span>
+                <p class="event-details">
+                    Direction le <strong>Domaine des Saints Pères</strong><br>
+                    (1540 Route de Chartreuse, Montagnole) pour fêter ça jusqu'au bout de la nuit !
+                </p>
+            </div>
+
+            <hr style="width: 40px; margin: 1.5rem auto; border-top: 2px dotted var(--col-accent-1); border-bottom:0; border-left:0; border-right:0;">
+
+            <div class="event">
+                <span class="event-icon"><i class="fa-solid fa-person-swimming"></i></span>
+                <span class="event-time">Le lendemain - 11h00</span>
+                <p class="event-details">
+                    Brunch de récupération.<br>
+                    <span class="highlight">N’oubliez pas vos maillots de bain !</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-block bg-light" id="rsvp">
+        <div class="container">
+            <h2>Réponse souhaitée</h2>
+            <p>Merci de nous confirmer votre présence avant le 15 mars.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfm6L6s6YOLpHKT-bVpOrzy_G653_Jy5W7BNb-K9gGgd7GpAw/viewform?usp=header" target="_blank" class="btn">
+                Confirmer ma présence
+            </a>
+        </div>
+    </section>
+
+    <section class="section-block bg-white" id="registry">
+        <div class="container">
+            <h2>Liste de mariage</h2>
+            <p>Votre présence est notre plus beau cadeau. <br>Si vous souhaitez participer à nos projets :</p>
+            <a href="https://www.millemercismariage.com/jeanneguillaume2026/liste.html" target="_blank" class="btn">Accéder à la liste</a>
+        </div>
+    </section>
+
+    <section class="section-block bg-light" id="accommodation">
+        <div class="container">
+            <h2>Hébergements</h2>
+            <p>Voici une sélection d'adresses à proximité pour faciliter votre séjour.<br>N'hésitez pas à réserver rapidement !</p>
+            
+            <a href="hebergements.pdf" download class="btn">
+                <i class="fa-solid fa-file-pdf" style="margin-right: 8px;"></i> Guide des hébergements
+            </a>
+        </div>
+    </section>
+
+    <footer>Jeanne & Guillaume - 2026</footer>
+
+    <script>
+        const weddingDate = new Date('June 27, 2026 15:00:00').getTime();
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<div class='highlight'>Vive les mariés !</div>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
