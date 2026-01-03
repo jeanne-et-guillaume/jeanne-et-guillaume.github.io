@@ -73,8 +73,7 @@
             /* VITESSE : 60s */
             animation: scrollBackground 60s linear infinite;
 
-            /* AJOUT DU MASQUE DE TRANSPARENCE SUR LES 5% DU BAS */
-            /* L'image est visible (opaque) jusqu'à 95%, puis devient transparente vers 100% */
+            /* MASQUE DE TRANSPARENCE SUR LES 5% DU BAS */
             -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
             mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
         }
@@ -85,8 +84,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            /* Padding bas à 5rem pour remonter le titre */
-            padding: 1.5rem 1rem 5rem 1rem;
+            /* MODIFICATION MOBILE : Padding bas réduit à 2rem pour descendre le texte */
+            padding: 1.5rem 1rem 2rem 1rem;
             text-align: center;
             z-index: 2;
         }
@@ -118,6 +117,10 @@
         @media (min-width: 768px) {
             body { font-size: 1.2rem; }
             .hero-container { height: 80vh; }
+            
+            /* SUR ORDI : On remonte un peu le texte pour l'équilibre */
+            .hero-content { padding-bottom: 5rem; }
+
             .hero-title { font-size: 5rem; }
             .hero-subtitle { font-size: 2.5rem; }
             h2 { font-size: 2.5rem; }
