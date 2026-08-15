@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta name="robots" content="noindex, nofollow">
 
     <title>Mariage de Jeanne & Guillaume</title>
@@ -51,14 +50,13 @@
 
         a { color: var(--col-texte); text-decoration: none; transition: 0.3s; }
 
-        /* --- ENTÊTE DÉFILANT (Hero) --- */
+        /* --- HERO --- */
         .hero-container {
             position: relative;
             width: 100%;
             height: 60vh;
             overflow: hidden;
             background-color: var(--col-fond);
-            /* Sécurité pour supprimer toute marge parasite */
             margin: 0;
             padding: 0;
             top: 0;
@@ -69,21 +67,14 @@
             height: 100%;
             background-image: url('fond.jpg'); 
             background-repeat: repeat-x;
-            
-            /* MODIFICATION MOBILE : Cover pour remplir la hauteur (supprime la marge haut) */
             background-size: cover;
-            /* On garde l'alignement BAS pour ne pas couper le paysage */
             background-position: center bottom;
-            
             will-change: background-position;
             animation: scrollBackground 60s linear infinite;
-
-            /* Masque fondu en bas */
             -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
             mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
         }
 
-        /* Contenu du Header */
         .hero-content {
             position: absolute;
             bottom: 0;
@@ -115,27 +106,6 @@
             100% { background-position: -100vw bottom; }
         }
 
-        /* --- MEDIA QUERY DESKTOP --- */
-        @media (min-width: 768px) {
-            body { font-size: 1.2rem; }
-            .hero-container { height: 80vh; }
-            
-            /* SUR ORDI : On remet le mode "seamless" car l'écran est large */
-            .hero-scroller {
-                background-size: 100vw auto;
-                background-position: left bottom;
-            }
-
-            .hero-content { padding-bottom: 5rem; }
-
-            .hero-title { font-size: 5rem; }
-            .hero-subtitle { font-size: 2.5rem; }
-            h2 { font-size: 2.5rem; }
-            .btn { font-size: 1.3rem !important; padding: 1rem 2.5rem !important; }
-            .event-icon { font-size: 2.5rem !important; }
-            .time-val { font-size: 2rem !important; }
-        }
-
         /* --- SECTIONS --- */
         .section-block {
             padding: 3rem 1rem;
@@ -146,7 +116,7 @@
         .bg-white { background-color: var(--col-blanc); }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
@@ -163,6 +133,12 @@
         .time-box { display: flex; flex-direction: column; align-items: center; min-width: 50px; }
         .time-val { font-size: 1.6rem; font-weight: bold; color: var(--col-titre); }
         .time-label { font-size: 0.9rem; }
+        
+        .celebrate-msg {
+            color: var(--col-texte);
+            font-size: 3rem;
+            font-weight: bold;
+        }
 
         /* --- PROGRAMME --- */
         .event { margin-bottom: 2rem; }
@@ -204,12 +180,114 @@
             transform: translateY(-2px);
         }
 
+        /* --- GALERIE PHOTOS --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 1 / 1;
+            background-color: rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- LIGHTBOX --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .lightbox-close:hover { transform: scale(1.2); }
+
+        .lightbox-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .lightbox-btn:hover { background: rgba(0, 0, 0, 0.7); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* --- FOOTER --- */
         footer {
             padding: 1.5rem;
             background-color: var(--col-accent-2);
             color: white;
             text-align: center;
             font-size: 0.9rem;
+        }
+
+        /* --- MEDIA QUERY DESKTOP --- */
+        @media (min-width: 768px) {
+            body { font-size: 1.2rem; }
+            .hero-container { height: 80vh; }
+            .hero-scroller {
+                background-size: 100vw auto;
+                background-position: left bottom;
+            }
+            .hero-content { padding-bottom: 5rem; }
+            .hero-title { font-size: 5rem; }
+            .hero-subtitle { font-size: 2.5rem; }
+            h2 { font-size: 2.5rem; }
+            .btn { font-size: 1.3rem !important; padding: 1rem 2.5rem !important; }
+            .event-icon { font-size: 2.5rem !important; }
+            .time-val { font-size: 2rem !important; }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 16px;
+            }
         }
     </style>
 </head>
@@ -223,126 +301,507 @@
         </div>
     </header>
 
+    <!-- SECTION COMPTE À REBOURS -->
     <section class="section-block bg-light">
         <div class="container">
             <div id="countdown">
-                <div class="time-box"><span class="time-val" id="days">00</span><span class="time-label">Jours</span></div>
-                <div class="time-box"><span class="time-val" id="hours">00</span><span class="time-label">Heures</span></div>
-                <div class="time-box"><span class="time-val" id="minutes">00</span><span class="time-label">Min</span></div>
-                <div class="time-box"><span class="time-val" id="seconds">00</span><span class="time-label">Sec</span></div>
-            </div>
-            <p style="margin-top: 1.5rem;">
-                Nous avons hâte de partager ce moment unique avec vous.
-            </p>
+                <div class='celebrate-msg'>Vive les mariés !</div>
         </div>
     </section>
 
-    <section class="section-block bg-white" id="infos">
+    <!-- SECTION GALERIE PHOTOS (TOUT EN BAS) -->
+    <section class="section-block bg-white" id="photos">
         <div class="container">
-            <h2>Programme</h2>
-            <br>
-            
-            <div class="event">
-                <span class="event-icon"><i class="fa-solid fa-church"></i></span>
-                <span class="event-time">15h00 - La Cérémonie</span>
-                <p class="event-details">
-                    Nous échangerons nos vœux en l'<strong>église Saint-André à Montagnole</strong>.<br>
-                    <small>Messe célébrée par le Père Gilbert Brun.</small>
-                </p>
-            </div>
-
-            <hr style="width: 40px; margin: 1.5rem auto; border-top: 2px dotted var(--col-accent-1); border-bottom:0; border-left:0; border-right:0;">
-
-            <div class="event">
-                <span class="event-icon"><i class="fa-solid fa-champagne-glasses"></i></span>
-                <span class="event-time">17h30 - Cocktail, Dîner et Soirée</span>
-                <p class="event-details">
-                    Direction le <strong>Domaine des Saints Pères</strong><br>
-                    (1540 Route de Chartreuse, Montagnole) pour fêter ça jusqu'au bout de la nuit !
-                </p>
-            </div>
-
-            <hr style="width: 40px; margin: 1.5rem auto; border-top: 2px dotted var(--col-accent-1); border-bottom:0; border-left:0; border-right:0;">
-
-            <div class="event">
-                <span class="event-icon"><i class="fa-solid fa-person-swimming"></i></span>
-                <span class="event-time">Le lendemain - 11h00</span>
-                <p class="event-details">
-                    Brunch de récupération.<br>
-                    <span class="highlight">N’oubliez pas vos maillots de bain !</span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-block bg-light" id="rsvp">
-        <div class="container">
-            <h2>Réponse souhaitée</h2>
-            <p>Merci de nous confirmer votre présence avant le 15 mars.</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfm6L6s6YOLpHKT-bVpOrzy_G653_Jy5W7BNb-K9gGgd7GpAw/viewform?usp=header" target="_blank" class="btn">
-                Confirmer ma présence
-            </a>
-        </div>
-    </section>
-
-    <section class="section-block bg-white" id="registry">
-        <div class="container">
-            <h2>Liste de mariage</h2>
-            <p>Votre présence est notre plus beau cadeau. <br>Si vous souhaitez participer à nos projets :</p>
-            <a href="https://www.millemercismariage.com/jeanneguillaume2026/liste.html" target="_blank" class="btn">Accéder à la liste</a>
-        </div>
-    </section>
-
-    <section class="section-block bg-light" id="accommodation">
-        <div class="container">
-            <h2>Hébergements</h2>
-            <p>Voici une sélection d'adresses à proximité pour faciliter votre séjour.<br>N'hésitez pas à réserver rapidement !</p>
-            
-            <a href="hebergements.pdf" download class="btn">
-                <i class="fa-solid fa-file-pdf" style="margin-right: 8px;"></i> Guide des hébergements
-            </a>
-        </div>
-    </section>
-
-    <section class="section-block bg-white" id="kids">
-        <div class="container">
-            <h2>Nos petits invités</h2>
-            <span class="event-icon"><i class="fa-solid fa-child-reaching"></i></span>
-            
+            <h2>Galerie Photos</h2>
+            <span class="event-icon"><i class="fa-solid fa-camera-retro"></i></span>
             <p>
-                Pour que vous puissiez profiter pleinement de la fête, des baby-sitters
-                seront présents sur place pour s'occuper des enfants en âge d'aller à l'école.
+                <p>Retrouvez tous les souvenirs de cette super journée, immortalisée par Jonathan Sylvoz.</p>
+                <p>Cliquez sur une photo pour l'agrandir.</p>
             </p>
-            
-            <p style="margin-top: 1rem; font-size: 0.95rem; font-style: italic;">
-                Pour les plus petits, ils resteront sous la responsabilité de leurs parents.
-            </p>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Collez votre liste complète générée par gallery_tags.html ici -->
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-125839-L1041065.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-130417-JON_6005.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-130952-L1041092.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-131534-L1041103.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-131851-L1041108.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-132615-L1041110.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-132640-L1041115.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-133800-L1041129.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-134055-L1041133.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-134223-L1041137.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-134434-L1041152.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-134527-L1041158.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-134727-L1041185.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-134933-L1041201.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-135006-L1041203.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-135116-L1041207.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-135255-L1041216.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-135740-L1041237.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-135916-L1041245.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-140344-JON_6059.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-140834-L1041264.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-140840-L1041266.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-140955-L1041272.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141018-L1041275.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141025-L1041277.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141036-L1041279.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141426-L1041291.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141505-L1041293.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141709-L1041299.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141732-L1041302.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141741-L1041304.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-141947-L1041311.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-142027-L1041314.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-142514-L1041333.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-142644-L1041337.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143047-L1041356.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143056-L1041361.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143111-L1041366.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143125-JON_6082.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143159-JON_6098.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143310-L1041371.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143426-L1041388.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143452-L1041400.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143556-JON_6110.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143753-L1041415.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143754-L1041417.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143755-L1041418.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143834-L1041427.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-143917-JON_6123.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150054-L1041451.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150114-L1041455.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150115-JON_6152.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150221-L1041457.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150822-JON_6159.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150824-JON_6161.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150834-JON_6171.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150849-JON_6190.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150851-JON_6199.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150906-JON_6214.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150910-JON_6222.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150923-JON_6229.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150928-JON_6239.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-150930-JON_6244.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-151025-L1041463.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-151036-L1041472.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-151040-JON_6257.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-151104-JON_6264.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-151534-L1041498.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-151644-JON_6293.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-151701-JON_6301.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-151845-L1041500.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152045-L1041507.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152046-JON_6318.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152240-L1041514.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152250-L1041517.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152303-JON_6323.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152320-JON_6325.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152541-JON_6337.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152612-L1041521.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152824-JON_6340.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152849-JON_6343.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-152931-JON_6354.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-153025-JON_6355.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-153033-JON_6362.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-153647-JON_6364.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-153736-JON_6373.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154131-JON_6386.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154149-L1041532.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154202-JON_6395.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154206-JON_6398.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154307-JON_6412.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154315-JON_6415.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154343-JON_6423.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154352-JON_6424.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154625-JON_6431.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154636-JON_6432.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154724-JON_6445.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154737-JON_6461.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-154754-L1041564.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155003-JON_6465.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155008-JON_6472.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155010-JON_6475.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155013-JON_6479.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155021-L1041580.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155030-JON_6484.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155034-JON_6493.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155041-JON_6501.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155136-L1041591.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155143-JON_6504.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155211-JON_6516.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155346-L1041609.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155352-L1041613.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155356-JON_6525.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155357-L1041617.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155444-JON_6530.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155500-L1041618.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-155710-L1041624.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-160105-JON_6549.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-160212-JON_6554.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-160248-JON_6562.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-160914-L1041651.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-161023-L1041660.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-161046-L1041666.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-161549-JON_6568.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-161706-L1041673.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-161929-L1041679.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-162002-L1041683.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-162031-L1041686.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-162109-L1041688.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-162149-L1041695.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-162350-L1041721.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-162615-L1041726.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-162651-L1041730.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-162657-L1041733.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163059-L1041745.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163212-L1041752.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163214-L1041757.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163215-L1041764.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163219-L1041778.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163219-L1041780.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163221-L1041786.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163240-L1041795.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163250-L1041801.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163303-L1041804.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163313-L1041811.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163419-L1041818.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163724-L1041827.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163725-L1041830.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163757-L1041833.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163833-L1041839.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163904-L1041845.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-163953-L1041851.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-164026-L1041855.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-164128-L1041863.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-164242-L1041869.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-164306-L1041876.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-164320-L1041880.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-164340-L1041883.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-164349-L1041886.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-165447-L1041915.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-165605-L1041918.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-165609-L1041922.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-165705-L1041934.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-165719-L1041946.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171414-JON_6583.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171418-JON_6585.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171428-JON_6586.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171439-JON_6589.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171444-JON_6591.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171449-JON_6592.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171551-JON_6594.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171555-JON_6595.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171749-L1041948.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-171823-L1041953.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-173243-L1041960.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-173259-L1041964.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-173610-L1041971.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-173610-L1041972.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-173640-L1041979.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-174356-JON_6603.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-174357-JON_6605.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-174449-L1041993.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-175035-L1042012.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-175042-L1042021.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-175116-L1042024.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-175237-L1042029.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-175305-L1042039.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-175309-L1042042.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-175551-L1042049.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-175917-L1042053.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-180034-L1042062.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-180415-L1050002.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-180420-L1050012.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-180425-L1050017.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181014-L1050027.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181027-L1050031.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181032-L1050034.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181124-L1050046.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181136-L1050049.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181139-L1050051.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181152-L1050054.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181205-L1050056.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181248-L1050067.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181314-L1050070.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181509-L1050075.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181518-L1050076.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181653-L1050078.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181824-L1050082.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181904-L1050085.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-181923-L1050087.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-182306-L1050093.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-182350-L1050097.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-182416-L1050100.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-182601-L1050110.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-182644-L1050112.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-182646-L1050116.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-182647-L1050118.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-182733-L1050120.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-183029-L1050135.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-183612-JON_6626.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-183841-JON_6633.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-183910-JON_6642.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-183956-JON_6650.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-184005-JON_6651.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-184218-JON_6660.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-184324-JON_6662.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-184447-JON_6664.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-184514-JON_6668.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-184618-JON_6675.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-184629-JON_6676.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185109-JON_6696.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185436-JON_6698.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185523-JON_6704.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185524-JON_6706.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185535-JON_6709.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185543-JON_6710.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185547-JON_6712.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185553-JON_6715.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185608-JON_6719.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185634-JON_6725.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185710-JON_6729.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-185939-L1050146.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190050-L1050158.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190122-L1050165.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190233-L1050175.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190245-L1050179.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190246-L1050181.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190247-L1050183.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190250-L1050186.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190255-L1050187.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190420-L1050195.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190443-JON_6741.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190603-JON_6745.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190606-JON_6750.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190615-JON_6753.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190733-JON_6759.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190742-JON_6764.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190750-L1050207.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-190812-JON_6769.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191023-L1050217.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191032-L1050221.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191059-JON_6775.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191353-JON_6786.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191540-L1050248.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191726-L1050258.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191919-JON_6791.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191922-JON_6792.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-191936-JON_6794.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192024-L1050260.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192031-L1050268.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192036-L1050272.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192041-L1050275.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192048-L1050279.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192254-L1050284.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192255-L1050286.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192721-JON_6800.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192825-JON_6813.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192840-JON_6818.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192919-JON_6831.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-192953-L1050300.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-193031-L1050305.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-193058-L1050312.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-193112-L1050316.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-193125-L1050324.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-193248-L1050347.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-193335-L1050361.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-194023-L1050380.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-194108-L1050383.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-194111-L1050387.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-194307-L1050394.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195120-L1050397.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195140-JON_6837.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195203-JON_6857.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195220-JON_6861.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195224-JON_6874.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195353-JON_6881.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195410-JON_6899.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195443-JON_6935.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195653-JON_7005.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-195818-JON_7039.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-200133-JON_7070.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-200137-JON_7081.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-200154-JON_7093.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-200247-JON_7174.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-200829-JON_7225.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-200830-JON_7229.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-201016-JON_7318.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-201118-JON_7375.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-201120-JON_7382.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-201125-JON_7388.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-201134-JON_7406.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-201203-JON_7416.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-201849-JON_7458.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-201850-JON_7464.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-202044-JON_7544.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-202152-JON_7550.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-202225-JON_7561.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-202633-JON_7569.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-202743-JON_7571.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-202759-JON_7576.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-202823-JON_7580.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-202838-JON_7585.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-203353-JON_7607.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-204053-JON_7623.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-204235-JON_7632.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-204340-JON_7643.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-204358-JON_7645.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-204705-JON_7653.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-204729-JON_7655.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-204800-JON_7658.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-205244-JON_7667.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-205251-JON_7672.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-215157-JON_7687.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-215709-JON_7695.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-215711-JON_7697.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-215834-JON_7699.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-215836-JON_7702.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-220110-JON_7725.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-220530-JON_7748.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-220535-JON_7750.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-220538-JON_7753.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-220746-JON_7768.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-220809-JON_7772.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-220956-JON_7785.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-221121-JON_7797.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-221128-JON_7802.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-221133-JON_7810.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-230650-JON_7844.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-230831-JON_7852.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-230907-JON_7858.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-231522-JON_7868.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232841-JON_7883.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232841-JON_7884.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232842-JON_7885.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232844-JON_7889.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232847-JON_7895.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232900-JON_7906.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232900-JON_7909.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232947-JON_7942.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-232954-JON_7956.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233344-JON_7980.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233345-JON_7983.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233401-JON_7991.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233414-JON_8003.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233415-JON_8007.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233433-JON_8023.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233435-JON_8030.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233505-JON_8037.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233636-JON_8048.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233641-JON_8061.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233644-JON_8069.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233649-JON_8082.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233651-JON_8088.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233652-JON_8093.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233652-JON_8094.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233654-JON_8100.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233734-JON_8129.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233800-JON_8167.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233802-JON_8175.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233810-JON_8189.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233831-JON_8200.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233833-JON_8205.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233835-JON_8215.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233901-JON_8226.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233903-JON_8234.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233905-JON_8242.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233946-JON_8259.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-233947-JON_8261.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234006-JON_8271.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234006-JON_8273.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234030-JON_8275.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234031-JON_8280.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234041-JON_8281.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234044-JON_8289.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234231-JON_8310.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234240-JON_8329.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234241-JON_8332.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234248-JON_8347.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234325-JON_8363.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234334-JON_8368.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234337-JON_8374.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234341-JON_8385.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234344-JON_8394.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234351-JON_8406.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234353-JON_8410.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234412-JON_8434.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234427-JON_8445.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234452-JON_8450.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234829-JON_8471.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234831-JON_8475.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234933-JON_8480.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234952-JON_8509.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-234953-JON_8511.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235328-JON_8527.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235403-JON_8541.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235443-JON_8571.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235447-JON_8573.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235448-JON_8575.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235459-JON_8589.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235506-JON_8596.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235635-JON_8599.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235638-JON_8607.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235657-JON_8618.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235706-JON_8627.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235707-JON_8629.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235738-JON_8651.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="photos/officiel/Jonathan-sylvoz-27062026-235748-JON_8663.jpg" alt="Mariage Jeanne & Guillaume" loading="lazy"></div>
+            </div>
         </div>
     </section>
+
+    <!-- LIGHTBOX OVERLAY -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+        <button class="lightbox-btn lightbox-prev" onclick="changeImage(-1, event)">&#10094;</button>
+        <img id="lightbox-img" class="lightbox-img" src="" alt="Vue agrandie">
+        <button class="lightbox-btn lightbox-next" onclick="changeImage(1, event)">&#10095;</button>
+    </div>
 
     <footer>Jeanne & Guillaume - 2026</footer>
 
     <script>
-        const weddingDate = new Date('June 27, 2026 15:00:00').getTime();
-        const timer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
 
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById("countdown").innerHTML = "<div class='highlight'>Vive les mariés !</div>";
+        /* Visionneuse (Lightbox) */
+        let currentImages = [];
+        let currentIndex = 0;
+
+        function openLightbox(element) {
+            currentImages = Array.from(document.querySelectorAll('#gallery-grid .gallery-item img')).map(img => img.src);
+            const clickedSrc = element.querySelector('img').src;
+            currentIndex = currentImages.indexOf(clickedSrc);
+
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = clickedSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox(event) {
+            if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox').classList.remove('active');
             }
-        }, 1000);
+        }
+
+        function changeImage(direction, event) {
+            event.stopPropagation();
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = currentImages.length - 1;
+            if (currentIndex >= currentImages.length) currentIndex = 0;
+            document.getElementById('lightbox-img').src = currentImages[currentIndex];
+        }
+
+        /* Touches clavier (Échap, Flèches Gauche / Droite) */
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') lightbox.classList.remove('active');
+                if (e.key === 'ArrowLeft') changeImage(-1, e);
+                if (e.key === 'ArrowRight') changeImage(1, e);
+            }
+        });
     </script>
 </body>
 </html>
